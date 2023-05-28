@@ -1,5 +1,6 @@
 import express from "express"
 import { client } from "@gradio/client"
+import { Blob } from 'node:buffer';
 
 import { createRequire } from "module"
 const require = createRequire(import.meta.url)
@@ -17,7 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(fileupload())
 
-app.get("/", (_, res) => {
+app.get("/", (req, res) => {
 	let origin = req.headers.origin
 	if (origin !== undefined) {
 		res.setHeader("Access-Control-Allow-Origin", origin)
