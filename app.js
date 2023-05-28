@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(fileupload())
 
-app.get("/", (_, res) => {
+app.get("/", (req, res) => {
 	let origin = req.headers.origin
 	if (origin !== undefined) {
 		res.setHeader("Access-Control-Allow-Origin", origin)
