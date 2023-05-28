@@ -5,8 +5,6 @@ import { createRequire } from "module"
 const require = createRequire(import.meta.url)
 let fileupload = require("express-fileupload")
 
-import { cors } from "./middleware.js"
-
 const app = express()
 const PORT = process.env.PORT || 3003
 const SPACE_ENDPOINT = "https://tvrsimhan-yamnetapi.hf.space/"
@@ -19,11 +17,36 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(fileupload())
 
-app.get("/", cors, (_, res) => {
+app.get("/", (_, res) => {
+	let origin = req.headers.origin
+	if (origin !== undefined) {
+		res.setHeader("Access-Control-Allow-Origin", origin)
+	}
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE",
+		"OPTIONS"
+	)
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	res.setHeader("Access-Control-Allow-Credentials", true)
+	res.setHeader("Vary", "Origin")
 	res.status(200).send("API Online!")
 })
 
-app.post("/upload", cors, async (req, res) => {
+app.post("/upload", async (req, res) => {
+
+	let origin = req.headers.origin
+	if (origin !== undefined) {
+		res.setHeader("Access-Control-Allow-Origin", origin)
+	}
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PUT, DELETE",
+		"OPTIONS"
+	)
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	res.setHeader("Access-Control-Allow-Credentials", true)
+	res.setHeader("Vary", "Origin")
 
 	if (req.files === null) {
 		return res.status(400).json({ msg: "No file uploaded" })
