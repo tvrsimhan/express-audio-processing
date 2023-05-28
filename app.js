@@ -23,3 +23,13 @@ app.get("/", cors, (_, res) => {
 	res.status(200).send("API Online!")
 })
 
+
+async function predict(blob) {
+	const audio = new Blob([blob], { type: "audio/wav" })
+
+	const app = await client(SPACE_ENDPOINT)
+	const result = await app.predict("/predict", [audio])
+
+	return result?.data
+}
+
