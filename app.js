@@ -23,6 +23,18 @@ app.get("/", cors, (_, res) => {
 	res.status(200).send("API Online!")
 })
 
+app.post("/upload", cors, async (req, res) => {
+
+	if (req.files === null) {
+		return res.status(400).json({ msg: "No file uploaded" })
+	}
+
+	const file = req.files.audio
+	let blob = file.data
+	let data = await predict(blob)
+
+	res.status(200).json({ data })
+})
 
 async function predict(blob) {
 	const audio = new Blob([blob], { type: "audio/wav" })
