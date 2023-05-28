@@ -68,6 +68,6 @@ async function predict(blob) {
 	return result?.data
 }
 
-app.get("*", cors, (_, res) => {
+app.get("*", (_, res) => {
 	res.sendStatus(404)
 })
