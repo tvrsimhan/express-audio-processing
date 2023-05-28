@@ -1,5 +1,6 @@
 import express from "express"
 import { client } from "@gradio/client"
+import { Blob } from 'node:buffer';
 
 import { createRequire } from "module"
 const require = createRequire(import.meta.url)
